@@ -1,24 +1,19 @@
 package vn.iotstar.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.ToString;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "categories")
-@Getter
+@Data
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
+@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +25,12 @@ public class Category {
     private String images;
 
     @ManyToMany(mappedBy = "categories")
-    @ToString.Exclude
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Product> products;
 
+    // Explicit getters and setters to fix IDE issues
     public Long getId() {
         return id;
     }
@@ -75,46 +69,5 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
-    }
-
-    /* Manual builder */
-    public static CategoryBuilder builder() {
-        return new CategoryBuilder();
-    }
-
-    public static class CategoryBuilder {
-        private String name;
-        private String images;
-        private Set<User> users = new java.util.HashSet<>();
-        private Set<Product> products = new java.util.HashSet<>();
-
-        public CategoryBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public CategoryBuilder images(String images) {
-            this.images = images;
-            return this;
-        }
-
-        public CategoryBuilder users(Set<User> users) {
-            this.users = users;
-            return this;
-        }
-
-        public CategoryBuilder products(Set<Product> products) {
-            this.products = products;
-            return this;
-        }
-
-        public Category build() {
-            Category c = new Category();
-            c.name = this.name;
-            c.images = this.images;
-            c.users = this.users;
-            c.products = this.products;
-            return c;
-        }
     }
 }

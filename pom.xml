@@ -74,6 +74,11 @@
 			<artifactId>mssql-jdbc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -82,6 +87,11 @@
 			<groupId>org.springframework.graphql</groupId>
 			<artifactId>spring-graphql-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- GraphiQL UI for GraphQL testing -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
